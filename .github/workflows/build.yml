@@ -4,17 +4,17 @@ on:
   push:
     tags:
       - 'v*'
-  workflow_dispatch: # Đây chính là dòng "ma thuật" để hiện nút Run workflow thủ công
+  workflow_dispatch: 
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Update lên v4 luôn cho nó đồng bộ
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Update lên v5 mới nhất
         with:
           python-version: '3.9'
 
@@ -28,7 +28,7 @@ jobs:
           pyinstaller --noconfirm --onefile --windowed --name "VT-SSTV_v3.9" SSTV.py
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4 # ĐÂY LÀ CHỖ QUAN TRỌNG NHẤT CẦN SỬA
         with:
           name: VT-SSTV-Exe-File
           path: dist/VT-SSTV_v3.9.exe
