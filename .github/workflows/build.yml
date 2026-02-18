@@ -25,7 +25,8 @@ jobs:
 
       - name: Build with PyInstaller
         run: |
-          pyinstaller --noconfirm --onefile --windowed --name "VT-SSTV_v3.9" SSTV.py
+          # Thêm --collect-all để hốt trọn bộ sounddevice và scipy
+          pyinstaller --noconfirm --onefile --windowed --name "VT-SSTV_v3.9" --collect-all sounddevice --collect-all scipy SSTV.py
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4 # ĐÂY LÀ CHỖ QUAN TRỌNG NHẤT CẦN SỬA
