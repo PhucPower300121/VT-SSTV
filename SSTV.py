@@ -427,7 +427,8 @@ Features:
         if not hasattr(self, 'samples_since_last_sync'):
             self.samples_since_last_sync = 0.0
 
-        samples_per_line = pixel_samps * 320 * 3
+        # Martin M1: mỗi dòng có 3 channel * 320 pixel + 3 khoảng gap (0.572ms)
+        samples_per_line = (pixel_samps * 320 * 3) + (self.gap_samples * 3)
         min_sync_spacing = samples_per_line * 0.8
 
         while (self.decode_ptr + pixel_window) <= len(self.stream_buffer) and self.current_line < 256:
@@ -517,7 +518,8 @@ Features:
                 # snapshot. This enforces exact 320-pixel width per channel and
                 # prevents gradual drift/skew across lines.
                 if self.channel == 0 and self.channel_pos == 0:
-                    samples_needed = int(pixel_samps * 320 * 3) + pixel_window
+                    line_span = (pixel_samps * 320 * 3) + (self.gap_samples * 3)
+                    samples_needed = int(line_span) + pixel_window
                     base_idx = int(self.decode_ptr)
                     if (len(self.stream_buffer) - base_idx) >= samples_needed:
                         line_buf = self.stream_buffer[base_idx: base_idx + samples_needed]
@@ -525,6 +527,8 @@ Features:
                         pos = 0.0  # vị trí float tích lũy
 
                         for ch in range(3):
+                            # Martin M1 có gap nhỏ trước mỗi channel màu
+                            pos += self.gap_samples
                             self.freq_buf_line = []
                             for px in range(320):
                                 idx = int(pos)
@@ -560,31 +564,9 @@ Features:
                                 self.draw_rx[px, self.current_line] = (r, g, b)
 
                                 pos += pixel_samps  # tăng đều, KHÔNG tính lại từ đầu
-                                freq = self.decode_freq(seg, sample_rate)
-                                # smoothing per-pixel using short local buffer
-                                if not hasattr(self, 'freq_buf_line'):
-                                    self.freq_buf_line = []
-                                self.freq_buf_line.append(freq)
-                                if len(self.freq_buf_line) > 5:
-                                    self.freq_buf_line.pop(0)
-                                smooth_freq = float(np.median(self.freq_buf_line))
-                                data_freq = smooth_freq
-                                if data_freq < 1500 or data_freq > 2300:
-                                    data_freq = 0
-                                val = int((data_freq - 1500) * 255 / 800) if data_freq else 0
-                                val = max(0, min(255, val))
-                                # write pixel into image at exact column px
-                                r, g, b = self.draw_rx[px, self.current_line]
-                                if ch == 0:
-                                    g = val
-                                elif ch == 1:
-                                    b = val
-                                else:
-                                    r = val
-                                self.draw_rx[px, self.current_line] = (r, g, b)
                             # finished a channel
                         # advance buffer past this full line
-                        consumed_line = base_idx + int(pixel_samps * 320 * 3)
+                        consumed_line = base_idx + int(line_span)
                         self.stream_buffer = self.stream_buffer[consumed_line:]
                         self.decode_ptr = 0.0
                         # cleanup tmp line buffer
