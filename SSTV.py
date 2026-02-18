@@ -16,7 +16,7 @@ TEXT_COLOR = "#E0E0E0"
 class GenzSSTV:
     def __init__(self, root):
         self.root = root
-        self.root.title("VT-SSTV 3.9 stable")
+        self.root.title("VT-SSTV 3.9.1 stable")
         self.root.geometry("600x650+30-50")  # Đặt vị trí cao hơn: width x height + x + y
         self.root.configure(bg=DARK_BG)
 
@@ -162,7 +162,7 @@ class GenzSSTV:
         # Version info
         version_frame = tk.LabelFrame(main_frame, text="Version", bg=DARK_BG, fg=TEXT_COLOR, padx=10, pady=8)
         version_frame.pack(fill="x", pady=10)
-        tk.Label(version_frame, text="Version: 3.9 stable", bg=DARK_BG, fg=TEXT_COLOR).pack(anchor="w", pady=5)
+        tk.Label(version_frame, text="Version: 3.9.1 stable", bg=DARK_BG, fg=TEXT_COLOR).pack(anchor="w", pady=5)
         
         # License info
         license_frame = tk.LabelFrame(main_frame, text="License", bg=DARK_BG, fg=TEXT_COLOR, padx=10, pady=8)
