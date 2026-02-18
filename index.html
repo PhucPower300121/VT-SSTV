@@ -14,6 +14,11 @@
     .gallery-container { background: #c0c0c0; border: 2px inset #ffffff; padding: 10px; overflow-x: auto; white-space: nowrap; display: flex; gap: 10px; height: 220px; }
     .gallery-img { height: 200px; border: 1px solid #7f7f7f; cursor: pointer; }
     .gallery-img:hover { border-color: #0000ff; }
+    .default-btn {
+      box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf, 1px 1px 0 #0a0a0a !important;
+      outline: 1px solid #000 !important;
+      outline-offset: -4px;
+    }
   </style>
 </head>
 <body>
@@ -85,14 +90,9 @@
 
       <section class="field-row" style="justify-content: flex-end; margin-top: 15px;">
         <label style="flex: 1;">Hoàng Sa, Trường Sa là của Việt Nam!</label>
-        <button id="next-btn" onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/releases')">Next</button>
+        <button class="default-btn" id="next-btn" onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/releases')">Next</button>
         <button onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/')">GitHub</button>
         <button disabled>Cancel</button>
-        <script>
-          window.onload = function() {
-            document.getElementById('next-btn').focus();
-          };
-        </script>
       </section>
     </div>
     <div class="status-bar">
