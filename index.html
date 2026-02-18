@@ -7,12 +7,13 @@
   <style>
     body { background: #008080; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; font-family: 'Tahoma', sans-serif; padding: 20px; }
     .window { width: auto; }
-    .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-    .preview-img { width: 100%; border: 1px solid #7f7f7f; height: 150px; object-fit: cover; }
     a { text-decoration: none; color: black; }
     ul { margin: 5px 0; }
     .scroll-box { background: white; border: 2px inset #d5d5d5; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px; }
     .easter-egg { color: #cc0000; font-weight: bold; }
+    .gallery-container { background: #c0c0c0; border: 2px inset #ffffff; padding: 10px; overflow-x: auto; white-space: nowrap; display: flex; gap: 10px; height: 220px; }
+    .gallery-img { height: 200px; border: 1px solid #7f7f7f; cursor: pointer; }
+    .gallery-img:hover { border-color: #0000ff; }
   </style>
 </head>
 <body>
