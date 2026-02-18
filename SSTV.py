@@ -451,6 +451,18 @@ Features:
             # phát hiện sync ở đầu dòng khả dĩ; chỉ chấp nhận nếu đủ mẫu
             # đã trôi từ sync trước. dùng cái này để né header lởm.
             # mấy sync header 10ms và tông 1200 vớ vẩn.
+            allow_sync_probe = (self.rx_state != "DATA") or (self.channel == 0 and self.channel_pos == 0)
+            if 1100 <= freq <= 1300 and allow_sync_probe:
+                self.sync_counter += 1
+                if self.rx_state == "IDLE":
+                    required_sync_hits = 4
+                    enough_spacing = True
+                elif self.rx_state == "DATA":
+                    required_sync_hits = 8
+                    enough_spacing = self.samples_since_last_sync >= (min_sync_spacing * 0.9)
+                else:
+                    required_sync_hits = 6
+                    enough_spacing = self.samples_since_last_sync >= min_sync_spacing
             if 1100 <= freq <= 1300 and (self.rx_state != "DATA" or (self.channel == 0 and self.channel_pos == 0)):
                 self.sync_counter += 1
                 # Ngưỡng sync linh hoạt: lúc IDLE cho phép bắt sync sớm để không mất
@@ -524,6 +536,8 @@ Features:
                     line_span = (pixel_samps * 320 * 3) + (self.gap_samples * 3)
                     samples_needed = int(line_span) + pixel_window
                     base_idx = int(self.decode_ptr)
+                    if (len(self.stream_buffer) - base_idx) < samples_needed:
+                        break
                     if (len(self.stream_buffer) - base_idx) >= samples_needed:
                         line_buf = self.stream_buffer[base_idx: base_idx + samples_needed]
                         # process 3 channels sequentially from the snapshot
