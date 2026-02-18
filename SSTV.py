@@ -463,6 +463,12 @@ Features:
                 else:
                     required_sync_hits = 6
                     enough_spacing = self.samples_since_last_sync >= min_sync_spacing
+            if 1100 <= freq <= 1300 and (self.rx_state != "DATA" or (self.channel == 0 and self.channel_pos == 0)):
+                self.sync_counter += 1
+                # Ngưỡng sync linh hoạt: lúc IDLE cho phép bắt sync sớm để không mất
+                # các dòng đầu; sau khi đã lock thì vẫn giữ spacing để chống false sync.
+                required_sync_hits = 4 if self.rx_state == "IDLE" else 6
+                enough_spacing = (self.rx_state == "IDLE") or (self.samples_since_last_sync >= min_sync_spacing)
                 if self.sync_counter >= required_sync_hits and enough_spacing:
                     # new line begins (either first after IDLE or subsequent)
                     self.current_line = 0 if self.rx_state == "IDLE" else self.current_line
