@@ -38,3 +38,14 @@ VT-SSTV is a modern implementation of Slow Scan Television (SSTV) for transmitti
 
 ## ⚠️ Known Features (Not Bugs)
 - **The "Left-Edge Trap":** Don't use images with super bright left edges, unless you want that sweet analog glitch vibe!
+- **Decoding capability when using a microphone with low volume**: Please do not use with low-volume audio sources; the algorithm will malfunction and ruin your image.
+
+## 🤝 Call for Contributors
+I built this core with **Martin M1** as a solid foundation. 
+If you are a radio enthusiast or a Python wizard, feel free to:
+- Add support for **Scottie S1/S2**, **Robot 36/72**, etc.
+- Optimize the **Hilbert Transform** for even better noise reduction.
+- Improve signal gain handling: The current engine struggles with low-volume microphones, often leading to corrupted images. We need a more robust way to normalize audio input before decoding.
+- Fix the **Left-Edge Trap** once and for all!
+
+Let's make VT-SSTV the best cross-platform SSTV tool together.
