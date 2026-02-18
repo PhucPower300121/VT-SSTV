@@ -3,37 +3,32 @@ name: Build VT-SSTV Executable
 on:
   push:
     tags:
-      - 'v*' # Chạy khi cậu tạo tag mới như v3.9, v4.0
+      - 'v*'
+  workflow_dispatch: # Đây chính là dòng "ma thuật" để hiện nút Run workflow thủ công
 
 jobs:
   build:
     runs-on: windows-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install numpy sounddevice pysstv Pillow scipy pyinstaller
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy sounddevice pysstv Pillow scipy pyinstaller
 
-    - name: Build with PyInstaller
-      run: |
-        pyinstaller --noconfirm --onefile --windowed --name "VT-SSTV_v3.9" --icon=NONE SSTV.py
-        # Giải thích:
-        # --onefile: Đóng gói tất cả vào 1 file .exe duy nhất
-        # --windowed: Không hiện cái bảng đen console khi mở app (cho nó dảk)
+      - name: Build with PyInstaller
+        run: |
+          pyinstaller --noconfirm --onefile --windowed --name "VT-SSTV_v3.9" SSTV.py
 
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: dist/VT-SSTV_v3.9.exe
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: VT-SSTV-Exe-File
+          path: dist/VT-SSTV_v3.9.exe
