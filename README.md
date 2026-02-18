@@ -49,3 +49,5 @@ If you are a radio enthusiast or a Python wizard, feel free to:
 - Fix the **Left-Edge Trap** once and for all!
 
 Let's make VT-SSTV the best cross-platform SSTV tool together.
+
+****Special Note****: The source code contains Vietnamese comments—think of it as a "Easter Egg" or an invitation to learn a bit of our language while you code! 🇻🇳
