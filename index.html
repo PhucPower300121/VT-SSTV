@@ -85,9 +85,14 @@
 
       <section class="field-row" style="justify-content: flex-end; margin-top: 15px;">
         <label style="flex: 1;">Hoàng Sa, Trường Sa là của Việt Nam!</label>
-        <button id="next-btn" autofocus onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/releases')">Next</button>
+        <button id="next-btn" onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/releases')">Next</button>
         <button onclick="window.open('https://github.com/PhucPower300121/VT-SSTV/')">GitHub</button>
         <button disabled>Cancel</button>
+        <script>
+          window.onload = function() {
+            document.getElementById('next-btn').focus();
+          };
+        </script>
       </section>
     </div>
     <div class="status-bar">
