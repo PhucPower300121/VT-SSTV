@@ -5,16 +5,20 @@
   <link rel="stylesheet" href="https://unpkg.com/xp.css">
   <title>VT-SSTV v3.9 Setup</title>
   <style>
-    body { background: #008080; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: 'Tahoma', sans-serif; }
+    body { background: #008080; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; font-family: 'Tahoma', sans-serif; padding: 20px; }
+    .window { width: 650px; }
+    .preview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+    .preview-img { width: 100%; border: 1px solid #7f7f7f; height: 150px; object-fit: cover; }
     a { text-decoration: none; color: black; }
-    .window { width: 450px; box-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
-    .preview-img { width: 100%; border: 1px solid #7f7f7f; margin-bottom: 10px; }
+    ul { margin: 5px 0; }
+    .scroll-box { background: white; border: 2px inset #d5d5d5; padding: 10px; height: 200px; overflow-y: scroll; margin-bottom: 10px; }
+    .easter-egg { color: #cc0000; font-weight: bold; }
   </style>
 </head>
 <body>
   <div class="window">
     <div class="title-bar">
-      <div class="title-bar-text">VT-SSTV_Installer.exe - Version 3.9 Stable</div>
+      <div class="title-bar-text">VT-SSTV_v3.9_Wizard.exe</div>
       <div class="title-bar-controls">
         <button aria-label="Minimize"></button>
         <button aria-label="Maximize"></button>
@@ -22,23 +26,57 @@
       </div>
     </div>
     <div class="window-body">
-      <p style="margin-top: 0;">Chào mừng cậu đến với trình cài đặt <b>VT-SSTV</b>!</p>
-      
-      <img class="preview-img" src="http://googleusercontent.com/image_collection/image_retrieval/5615154509144980139_0" alt="Vịnh Hạ Long SSTV Preview">
-      
-      <p><b>Protocol:</b> Martin M1 Only</p>
-      <p><b>Note:</b> Hoàn toàn miễn phí. Hoàng Sa, Trường Sa là của Việt Nam! 🇻🇳</p>
+      <div style="display: flex; gap: 20px;">
+        <div style="width: 150px; background: linear-gradient(180deg, #0046d5 0%, #0019a3 100%); display: flex; align-items: flex-end; padding: 10px; color: white;">
+          <h2 style="font-style: italic; opacity: 0.5;">VT-SSTV</h2>
+        </div>
+        <div style="flex: 1;">
+          <h2 style="margin-top: 0;">System Information</h2>
+          <div class="scroll-box">
+            <p><b>Description:</b> VT-SSTV is a modern implementation for transmitting and receiving images over radio frequencies.</p>
+            
+            <fieldset>
+              <legend>⚙ Features</legend>
+              <ul>
+                <li>Transmit Martin M1 (The sweet 1m55s spot)</li>
+                <li>Real-time or WAV decoding</li>
+                <li>Call sign overlay support</li>
+                <li>Auto-detect sample rate</li>
+                <li>Dark mode UI</li>
+              </ul>
+            </fieldset>
 
-      <section class="field-row" style="justify-content: flex-end; margin-top: 20px;">
+            <fieldset>
+              <legend>📡 Supported Protocol</legend>
+              <p><b>Martin M1 Only:</b> Fine-tuned for the best balance of quality and speed.</p>
+            </fieldset>
+
+            <fieldset>
+              <legend>⚠️ Known Features</legend>
+              <p>• <b>Left-Edge Trap:</b> Avoid bright left edges for best results.</p>
+              <p>• <b>Mic Gain:</b> Needs stable audio input for clear decoding.</p>
+            </fieldset>
+
+            <p class="easter-egg">Special Note: Vietnamese comments inside! 🇻🇳</p>
+          </div>
+
+          <div class="preview-grid">
+            <img class="preview-img" src="https://github.com/user-attachments/assets/417690e5-cbe7-401d-9a35-11c12aa921d3" alt="UI Screenshot">
+            <img class="preview-img" src="https://github.com/user-attachments/assets/e4693c3b-5626-42b2-9e25-da963f0da541" alt="Decode Preview">
+          </div>
+        </div>
+      </div>
+
+      <section class="field-row" style="justify-content: flex-end; margin-top: 15px;">
+        <label style="flex: 1;">Hoàng Sa, Trường Sa là của Việt Nam!</label>
         <button><a href="https://github.com/PhucPower300121/VT-SSTV/releases">Download (.exe)</a></button>
-        <button><a href="https://github.com/PhucPower300121/VT-SSTV">View Source</a></button>
-        <button disabled>Cancel</button>
+        <button><a href="https://github.com/PhucPower300121/VT-SSTV">GitHub</a></button>
       </section>
     </div>
     <div class="status-bar">
-      <p class="status-bar-field">Status: Ready to transmit</p>
-      <p class="status-bar-field">CPU: 0%</p>
-      <p class="status-bar-field">Developed by PhucPower</p>
+      <p class="status-bar-field">Press any key to enjoy</p>
+      <p class="status-bar-field">Stability: 100%</p>
+      <p class="status-bar-field">PhucPower Engineering</p>
     </div>
   </div>
 </body>
